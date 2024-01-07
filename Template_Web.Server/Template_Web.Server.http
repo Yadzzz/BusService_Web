@@ -1,0 +1,6 @@
+@Template_Web.Server_HostAddress = http://localhost:5278
+
+GET {{Template_Web.Server_HostAddress}}/api/Authentication/validatetoken
+Accept: application/json
+
+###

@@ -1,0 +1,61 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build_backend:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore Backend Dependencies
+        run: dotnet restore
+        working-directory: ./Template_Web.Server
+      
+      - name: Build Backend
+        run: dotnet build --no-restore
+        working-directory: ./Template_Web.Server
+
+      - name: Publish Backend
+        run: dotnet publish --configuration Release --output bin/Release/net8.0/publish
+        working-directory: ./Template_Web.Server
+
+      - name: Test Backend
+        run: dotnet test --no-build --verbosity normal
+        working-directory: ./Template_Web.Server
+
+  build_frontend:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install npm Dependencies
+        run: npm install
+        working-directory: ./template_web.client
+
+      - name: Build React app
+        run: npm run build
+        working-directory: ./template_web.client
+
+run-name: Deploy to IIS
+
+    
