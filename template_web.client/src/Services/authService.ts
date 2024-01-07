@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // authService.js
 import ApiClient from '../Infrastructure/API/apiClient';
 import React from 'react';
