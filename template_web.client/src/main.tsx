@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import "./assets/css/main.css";
+//import "./assets/css/main.css";
 import { CurrentUserProvider } from "./Infrastructure/Domain/CurrentUserContext";
 import ApiClient from "./Infrastructure/API/apiClient";
 
@@ -9,6 +9,8 @@ const Root = () => {
   const [isBackendReady, setIsBackendReady] = useState(false);
 
   useEffect(() => {
+    setIsBackendReady(true);
+    return;
     if (process.env.NODE_ENV === "development") {
       const api = new ApiClient();
 

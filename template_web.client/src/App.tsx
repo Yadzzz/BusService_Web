@@ -6,8 +6,8 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import "./App.css";
 import Home from "./Pages/Home";
+import ClientHome from "./Pages/Client/Home";
 import JQueryComponents from "./Components/Shared/JQueryComponents";
 import Login from "./Pages/Login";
 import ApiClient from "./Infrastructure/API/apiClient";
@@ -15,12 +15,10 @@ import Logout from "./Pages/Logout";
 import AuthService from "./Services/authService";
 import { CurrentUserProvider } from "./Infrastructure/Domain/CurrentUserContext";
 import { useCurrentUser } from "./Infrastructure/Domain/CurrentUserContext";
-interface Forecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import Header from "./Components/Shared/Header";
+import Features from "./Pages/Features";
+import Pricing from "./Pages/Pricing";
+import Contact from "./Pages/Contact";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -68,22 +66,32 @@ function App() {
     }
   }
 
-  if (isAuthenticated === null) {
+  /*if (isAuthenticated === null) {
     return <div className="container">Loading...</div>;
-  }
+  }*/
 
   return (
     <Router>
       <Suspense fallback={<div className="container">Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-          <Route
-            path="/login"
-            element={<Login setIsAuthenticated={setIsAuthenticated} />}
-          />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <div className="bg-white">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+
+            <Route
+              path="/client"
+              element={<ProtectedRoute element={<ClientHome />} />}
+            />
+            <Route
+              path="/login"
+              element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </div>
         <JQueryComponents />
       </Suspense>
     </Router>
