@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from "react";
 import ApiClient from "../Infrastructure/API/apiClient";
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,6 @@ const Login = () => {
     const api = new ApiClient();
     api.get<{ message: string }>(`/api/Authentication/logout`)
       .then((response) => {
-        console.log(response);
         redirectToLogin();
       })
       .catch((error) => {

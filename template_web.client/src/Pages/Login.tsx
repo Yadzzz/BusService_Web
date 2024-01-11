@@ -19,7 +19,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
   const { user, setUser } = useCurrentUser();
 
   const redirectToHome = () => {
-    navigate("/"); // Redirect to the home page
+    navigate("/client/dashboard"); // Redirect to the home page
   };
 
   useEffect(() => {
@@ -32,10 +32,10 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
           redirectToHome(); // Redirect to the home page if the user is already authenticated
         })
         .catch((error) => {
-          console.error("authentication check error:", error);
+          //console.error("authentication check error:", error);
         });
     } catch (error) {
-      console.log("Authentication check error:", error);
+      //console.log("Authentication check error:", error);
     }
 
     //AuthService(setIsAuthenticated);
@@ -74,7 +74,6 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
     event.preventDefault();
 
     if (validateForm()) {
-      console.log("Form is valid");
       // Make the API request for authentication or perform other actions
       const api = new ApiClient();
       api
@@ -85,7 +84,6 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
         .then(async (response) => {
           const usersHandler = new UsersHandler();
           const user = await usersHandler.getUserData();
-          console.log("User data:", user);
 
           if (user) {
             const usersHandler = new UsersHandler();
@@ -99,6 +97,11 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
         })
         .catch((error) => {
           console.error("Login error:", error);
+        })
+        .finally(() => {
+          // Clear the form inputs
+          setUsername("");
+          setPassword("");
         });
     } else {
       console.log("Form is not valid");
@@ -157,7 +160,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
             <h2 className="text-3xl font-bold text-center text-gray-900">
               Sign In
             </h2>
-            <form className="mt-8">
+            <form className="mt-8" onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
@@ -194,7 +197,6 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }: LoginProps) => {
                 <button
                   type="submit"
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => handleSubmit}
                 >
                   Sign In
                 </button>

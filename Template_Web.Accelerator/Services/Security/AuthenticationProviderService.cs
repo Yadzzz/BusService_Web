@@ -33,7 +33,7 @@ namespace Template_Web.Accelerator.Services.Security
         {
             // Here you should implement your user authentication logic.
             // For this example, we'll assume a simple username/password check.
-            if (username == "yad" && password == "123")
+            if (username == "yadmarzan@gmail.com" && password == "123")
             {
                 // Generate a token for the authenticated user
                 var userId = "2246a6c9-b7ac-46a1-bc54-a52270a0668d"; // Replace with the actual user ID

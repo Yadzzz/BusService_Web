@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import UsersApi from "../API/UsersApi";
 import User from "../../Models/User";
 import { useCurrentUser } from "../Domain/CurrentUserContext";
@@ -16,7 +17,6 @@ class UsersHandler {
         throw new Error('User data not found');
       }
       
-      console.log("User data:", user);
       return user;
     } catch (error) {
       console.error("Error getting user data:", error);

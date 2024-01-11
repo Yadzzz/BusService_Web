@@ -4,6 +4,7 @@ import App from "./App.tsx";
 //import "./assets/css/main.css";
 import { CurrentUserProvider } from "./Infrastructure/Domain/CurrentUserContext";
 import ApiClient from "./Infrastructure/API/apiClient";
+import Loader from "./Components/Shared/Loader.tsx";
 
 const Root = () => {
   const [isBackendReady, setIsBackendReady] = useState(false);
@@ -47,7 +48,7 @@ const Root = () => {
           </CurrentUserProvider>
         </React.StrictMode>
       ) : (
-        <div>Loading...</div>
+        <Loader />
       )}
     </>
   );

@@ -11,10 +11,12 @@ const AuthService = async (setIsAuthenticated: React.Dispatch<React.SetStateActi
     try {
         const apiClient = new ApiClient();
 
-        return apiClient.get("api/Authentication/validatetoken")
+        return apiClient.get("/api/Authentication/validatetoken")
             .then(async (response) => {
                 const usersHandler = new UsersHandler();
                 const user = await usersHandler.getUserData();
+
+                console.log('user', user);
                                 
                 if (user) {
                     return user;
@@ -23,7 +25,6 @@ const AuthService = async (setIsAuthenticated: React.Dispatch<React.SetStateActi
                 }
             })
             .catch((error) => {
-                console.log("Not Authenticated", error);
                 setIsAuthenticated(false);
                 return null;
             })
@@ -31,7 +32,7 @@ const AuthService = async (setIsAuthenticated: React.Dispatch<React.SetStateActi
                 // You can add any post-fetch logic here
             });
     } catch (error) {
-        console.error("Authentication error:", error);
+        //console.error("Authentication error:", error);
         setIsAuthenticated(false);
         return null;
     }

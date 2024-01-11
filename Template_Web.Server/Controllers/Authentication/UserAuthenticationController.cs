@@ -47,16 +47,21 @@ namespace Template_Web.Server.Controllers.Authentication
         [HttpGet("validatetoken")]
         public async Task<IActionResult> ValidateToken()
         {
+            await Console.Out.WriteLineAsync("123");
             var userAuthenticationResponse = await _authenticationProviderService.ValidateToken();
             if (userAuthenticationResponse == null)
             {
+                await Console.Out.WriteLineAsync("1");
                 return Unauthorized(new { message = "Error" });
             }
 
             if (!userAuthenticationResponse.Success)
             {
+                await Console.Out.WriteLineAsync("2");
                 return Unauthorized(new { message = userAuthenticationResponse.Error });
             }
+
+            await Console.Out.WriteLineAsync("Valid");
 
             //return Ok(new { message = "Token is valid" });
             return Ok(userAuthenticationResponse);
@@ -80,7 +85,6 @@ namespace Template_Web.Server.Controllers.Authentication
             });
         }
 
-        [Authorize]
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {

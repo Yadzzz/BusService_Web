@@ -11,12 +11,10 @@ namespace Template_Web.Server.Controllers.Users
     public class UserContextController : BaseController
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ApplicationSettings _applicationSettings;
 
-        public UserContextController(IHttpContextAccessor httpContextAccessor, ApplicationSettings applicationSettings)
+        public UserContextController(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            _applicationSettings = applicationSettings;
         }
 
         [HttpGet]
@@ -24,7 +22,7 @@ namespace Template_Web.Server.Controllers.Users
         {
 
 
-            return Ok(new { Id = "123" , Name = UserContext.Name, ApplicationSettings = _applicationSettings });
+            return Ok(new { Id = "123" , Name = UserContext.Name });
         }
     }
 }
